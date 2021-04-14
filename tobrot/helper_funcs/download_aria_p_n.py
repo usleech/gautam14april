@@ -7,6 +7,9 @@ import logging
 import os
 import sys
 import time
+from re import search
+import subprocess
+import hashlib
 
 import aria2p
 from pyrogram.errors import FloodWait, MessageNotModified
@@ -145,12 +148,19 @@ async def call_apropriate_function(
     is_unzip,
     user_message,
 ):
+    regexp = re.compile(r'^https?:\/\/.*(jackett|\.torrent|\/torrent|\/jav\.php).*')
     if incoming_link.lower().startswith("magnet:"):
         sagtus, err_message = add_magnet(aria_instance, incoming_link, c_file_name)
     elif incoming_link.lower().endswith(".torrent") and not incoming_link.lower().startswith("http"):
         sagtus, err_message = add_torrent(aria_instance, incoming_link)
     else:
-        sagtus, err_message = add_url(aria_instance, incoming_link, c_file_name)
+        if regexp.search(incoming_link):
+            var = incoming_link.encode('utf-8')
+            file = hashlib.md5(var).hexdigest()
+            subprocess.run([f"aria2c -d=/tmp -O=1={file}.torrent {incoming_link}"], shell=True)
+            sagtus, err_message = add_torrent(aria_instance, f"{file}.torrent")
+        else:
+            sagtus, err_message = add_url(aria_instance, incoming_link, c_file_name)
     if not sagtus:
         return sagtus, err_message
     LOGGER.info(err_message)
