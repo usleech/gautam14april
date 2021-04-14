@@ -7,6 +7,7 @@ import logging
 import os
 import sys
 import time
+import re
 from re import search
 import subprocess
 import hashlib
