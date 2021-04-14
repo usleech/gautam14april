@@ -1,1 +1,1 @@
-python3 -m tobrot
+bash setup.sh; python3 -m tobrot
