@@ -15,3 +15,8 @@ wget -O /app/gautam/gclone.gz https://git.io/JJMSG
 gzip -d /app/gautam/gclone.gz
 
 chmod +x /app/extract /app/gautam/gclone
+
+if [[ -n $RCLONE_CONFIG ]]; then
+	echo "Rclone config detected"
+	echo -e "$RCLONE_CONFIG" > /app/rclone.conf
+fi
