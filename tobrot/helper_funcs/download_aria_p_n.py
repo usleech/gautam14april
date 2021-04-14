@@ -159,7 +159,7 @@ async def call_apropriate_function(
             var = incoming_link.encode('utf-8')
             file = hashlib.md5(var).hexdigest()
             subprocess.run([f"aria2c -d=/tmp -O={file}.torrent {incoming_link}"], shell=True)
-            sagtus, err_message = add_torrent(aria_instance, f"{file}.torrent")
+            sagtus, err_message = add_torrent(aria_instance, f"/tmp/{file}.torrent")
         else:
             sagtus, err_message = add_url(aria_instance, incoming_link, c_file_name)
     if not sagtus:
