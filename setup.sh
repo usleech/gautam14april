@@ -13,8 +13,9 @@ echo "peer-id-prefix=-TR2940-$ran" >> /app/aria2.conf
 mkdir /app/gautam
 wget -O /app/gautam/gclone.gz https://git.io/JJMSG
 gzip -d /app/gautam/gclone.gz
+chmod 0775 /app/gautam/gclone
 
-chmod +x /app/extract /app/gautam/gclone
+chmod +x /app/extract
 
 if [[ -n $RCLONE_CONFIG ]]; then
 	echo "Rclone config detected"
