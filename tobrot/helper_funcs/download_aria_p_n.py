@@ -149,7 +149,7 @@ async def call_apropriate_function(
     is_unzip,
     user_message,
 ):
-    regexp = re.compile(r'^https?:\/\/.*(\.torrent|\/torrent|\/jav.php).*')
+    regexp = re.compile(r'^https?:\/\/.*(\.torrent|\/torrent|\/jav.php|nanobytes\.org).*')
     if incoming_link.lower().startswith("magnet:"):
         sagtus, err_message = add_magnet(aria_instance, incoming_link, c_file_name)
     elif incoming_link.lower().endswith(".torrent") and not incoming_link.lower().startswith("http"):
